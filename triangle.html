@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>css实现三角形</title>
+</head>
+<style>
+    .triangle {
+        display: flex;
+        margin:20px;
+    }
+    .triangle-margin {
+        width:20px;
+    }
+    #square {
+        height: 0px;
+        width: 0px;
+        border: 50px solid red;
+    }
+    #square1 {
+        height: 20px;
+        width: 20px;
+        border: 40px solid;
+        border-color: red pink yellow orange;
+    }
+    #trapezoid {
+        height: 20px;
+        width: 20px;
+        border: 40px solid;
+        border-color: orange transparent transparent transparent;
+    }
+    #triangle {
+        height: 0;
+        width: 0;
+        border: 50px solid;
+        border-color: pink transparent transparent transparent;
+    }
+    #triangle-small {
+        height: 0;
+        width: 0;
+        border: 50px solid;
+        border-bottom-width: 100px;
+        border-color:pink red blue yellow;
+    }
+    #triangle-45deg {
+        width: 0;
+        height: 0;
+        border-width: 50px;
+        border-style: solid;
+        border-color:transparent transparent red red;
+        /*border-color:transparent transparent red red;*/
+    }
+    #triangle1 {
+        width: 0;
+        height: 0;
+        border-width: 50px;
+        border-style: solid;
+        border-color:transparent transparent red blue;
+    }
+    #triangle-radius {
+        width: 0;
+        height: 0;
+        border-width: 50px;
+        border-style: solid;
+        border-color:red transparent transparent red;
+        border-top-left-radius: 20px;
+        opacity: 0.569;
+    }
+
+    .circle {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        line-height: 50px;
+        text-align: center;
+        background: pink;
+        color: white;
+    }
+    .tri-top {
+        width:200px;
+        height:100px;
+        border-radius: 8px;
+        background: #ccc;
+        position: relative;
+        margin: 20px
+    }
+    .tri-top:before {
+        content: '';
+        width: 0;
+        height: 0;
+        border: 10px solid;
+        border-color: transparent transparent #ccc transparent;
+        position: absolute;
+        top: -20px;
+        left: 50%;
+    }
+    .taiji {
+        width: 200px;
+        height: 200px;
+        position: relative;
+        border-radius: 50%;
+        animation: move 2s linear infinite;
+        background: linear-gradient(to bottom,  #ffffff 0%,#ffffff 50%,#000000 50%,#000000 100%);
+        box-shadow:0 0 30px rgba(0,0,0,.5);
+    }
+    .taiji1 {
+        width: 0;
+        height: 0;
+        position: relative;
+        border: 100px solid;
+        border-color: #fff #fff #000 #000;
+        border-radius: 50%;
+        box-shadow: 0 0 30px #ccc;
+        margin: 0 20px;
+        /*transform: rotate(-45deg);*/
+    }
+    .taiji1:before {
+        content: '';
+        display: block;
+        width: 20px;
+        height: 20px;
+        border:40px solid #fff;
+        border-radius: 50%;
+        background: #000;
+        position: absolute;
+        top: -10px;
+        left: -20px;
+    }
+    .taiji1:after {
+        content: '';
+        display: block;
+        width: 20px;
+        height: 20px;
+        border:40px solid #000;
+        border-radius: 50%;
+        background: #fff;
+        position: absolute;
+        top: -80px;
+        left: -91px;
+    }
+    .taiji:before {
+        content: '';
+        display: block;
+        width: 20px;
+        height: 20px;
+        border:40px solid #fff;
+        border-radius: 50%;
+        background: #000;
+        position: absolute;
+        top: 50px;
+        left: 0;
+    }
+    .taiji:after {
+        content: '';
+        display: block;
+        width: 20px;
+        height: 20px;
+        border:40px solid #000;
+        background: #fff;
+        border-radius: 50%;
+        position: absolute;
+        top: 50px;
+        right: 0;
+    }
+    @keyframes move {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+</style>
+<body>
+<div>
+    <div><span>利用border的一些属性来画三角形</span>
+        <p>定义一个空的div，宽高都设置为0，给div加上100px border边框，得到一个正方形</p>
+        <ul>
+            <li>border-width(border-bottom-width)</li>
+            <li>border-style</li>
+            <li>border-color</li>
+            <li>border-radius((border-top-left-radius border-top-right-radius))</li>
+        </ul>
+    </div>
+    <div class="triangle">
+        <div id="square1"></div>
+        <div class="triangle-margin"></div>
+        <div id="trapezoid"></div>
+        <div class="triangle-margin"></div>
+        <div id="square"></div>
+        <div class="triangle-margin"></div>
+        <div id="triangle"></div>
+        <div class="triangle-margin"></div>
+        <div id="triangle-45deg"></div>
+        <div class="triangle-margin"></div>
+        <div id="triangle1"></div>
+        <div class="triangle-margin"></div>
+        <div id="triangle-radius"></div>
+        <div class="triangle-margin"></div>
+        <div id="triangle-small"></div>
+    </div>
+    <div>
+        <div class="tri-top"></div>
+    </div>
+    <div>
+        <p>利用border-radius来画圆（圆圈中的文字垂直水平居中）</p>
+        <div class="circle">1</div>
+    </div>
+    <p>利用:before和：after伪类来画太极</p>
+    <div class="triangle">
+        <div class="taiji"></div>
+        <div class="taiji1"></div>
+    </div>
+</div>
+</body>
+</html>

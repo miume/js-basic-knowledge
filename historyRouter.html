@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>history 实现路由跳转</title>
+</head>
+<body>
+<p>history HTML5提供了一些路由操作的Api</p>
+<ul>
+    <li>history.go(n)</li>
+    <li>history.back()</li>
+    <li>history.forward()</li>
+    <li>history.pushState()：添加一条路由历史记录</li>
+    <li>history.replaceState()：替换当前页在路由历史记录的信息</li>
+    <li>popstate事件：当活动的历史记录发生变化，就会触发popstate事件</li>
+</ul>
+<ul class="ul">
+    <li><a href="/">home</a></li>
+    <li><a href='/page1'>page1</a></li>
+    <li><a href='/page2'>page2</a></li>
+</ul>
+<div class="content-div">home</div>
+</body>
+<script>
+    class RouterClass {
+        constructor(path) {
+            this.routes = {}; //记录路径标识符对应的callback
+            history.replaceState({ path }, null, path);
+            this.routes[path] && this.routes[path]();
+            window.addEventListener('popstate', e => {
+                const path = e.state && e.state.path;
+                this.routes[path] && this.routes[path]();
+            })
+        }
+        /**初始化*/
+        static init() {
+            window.Router = new RouterClass(location.pathname);
+        }
+
+        /**注册路由和回调*/
+        route(path, cb) {
+            this.routes[path] = cb || function () {};
+        }
+
+        /**路由跳转，并触发路由对应回调*/
+        go(path) {
+            history.pushState({ path }, null, path);
+            this.routes[path] && this.routes[path]();
+        }
+    }
+
+    RouterClass.init();
+    const contentDom = document.querySelector('.content-div');
+    const ul = document.querySelector('.ul');
+    console.log(ul)
+    const changeContent = content => contentDom.innerHTML = content;
+
+    //存储path对应的回调函数
+    Router.route('/', () => changeContent('默认页面'));
+    Router.route('/page1', () => changeContent('page1页面'));
+    Router.route('/page2', () => changeContent('page2页面'));
+
+    ul.addEventListener('click', e => {
+        console.log(e.target)
+        if (e.target.tagName === 'A') {
+            e.preventDefault();
+        }
+        Router.go(e.target.getAttribute('href'))
+    })
+
+</script>
+</html>

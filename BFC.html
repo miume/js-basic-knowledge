@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BFC-Block Formating Context 块级格式化上下文</title>
+</head>
+<style>
+    .pclass {
+        color: #f55;
+        background: #fcc;
+        width: 200px;
+        line-height: 50px;
+        text-align:center;
+        margin: 10px;
+    }
+    .wrap {
+        overflow: hidden;
+    }
+    .neighbor {
+        display: inline-block;
+        margin: 10px;
+    }
+    .box {
+        background-color: rgb(224,206,247);
+        border: 5px solid rebeccapurple;
+        overflow:auto
+    }
+    .float {
+        float: left;
+        width: 200px;
+        height: 150px;
+        background-color: white;
+        border: 1px solid black;
+        padding: 10px;
+    }
+
+    .par {
+        border: 5px solid #fcc;
+        width: 300px;
+        overflow: hidden;
+    }
+    .child {
+        border: 5px solid #f66;
+        width: 100px;
+        height: 100px;
+        float: left;
+    }
+    .outer {
+        border: 5px dotted rgb(214,129,137);
+        border-radius: 5px;
+        width: 600px;
+        padding: 10px;
+        margin-bottom: 40px;
+        overflow: hidden;
+    }
+    .inner {
+        padding: 10px;
+        border: 5px solid rgba(214,129,137,.4);
+        border-radius: 5px;
+        background-color: rgba(233,78,119,.4);
+        color: #fff;
+        float: left;
+        width: 200px;
+        margin: 0 20px 0 0;
+    }
+    .outer1 {
+        background-color: #ccc;
+        margin: 0 0 40px 0;
+        /*overflow: auto;*/
+        /*display:flow-root;新属性，可安全的创建BFC
+        可以解决 包裹浮动元素、阻止外边距叠加和阻止围绕浮动元素*/
+        display: flow-root;
+    }
+    .inner1 {
+        padding: 0;
+        margin: 20px 0 20px 0;
+        background-color: rgb(233,78,119);
+        color: #fff;
+    }
+    /*清除浮动的方法*/
+    /*.clearfix:after {*/
+        /*display: block;*/
+        /*content: '';*/
+        /*clear: both;*/
+        /*height: 0;*/
+        /*visibility: hidden;*/
+    /*}*/
+    /*.clearfix {*/
+        /*zoom: 1;*/
+    /*}*/
+</style>
+<body>
+<div>
+    <ul>
+        <li>跟元素</li>
+        <li>float不为None</li>
+        <li>overflow不为visible</li>
+        <li>display为：inline-block | table-cell | table-caption</li>
+        <li>position:absolute | fixed</li>
+    </ul>
+    <h4>BFC特性</h4>
+    <ol>
+        <li>使BFC内部浮动元素不会到处乱跑</li>
+        <li>和浮动元素产生边界</li>
+    </ol>
+    <h4>防止margin重叠（两个相邻Box垂直方向margin重叠）</h4>
+    <h5>Box垂直方向的距离由margin决定。属于同一个BFC的两个相邻Box的margin会发生重叠</h5>
+</div>
+<p class="pclass">Haha</p>
+<div class="wrap">
+    <p  class="pclass">Hehe</p>
+</div>
+
+<h3>让浮动内容和周围内容等高（通常设置父元素overflow:auto）</h3>
+<div class="box">
+    <div class="float">I am a floated box!</div>
+    <h3>I am content inside the container.</h3>
+</div>
+
+<h4>父元素塌陷</h4>
+<div class="par">
+    <div class="child"></div>
+    <div class="child"></div>
+</div>
+
+<h4>子元素浮动之后致使其父元素塌陷：没有足够多的文本，盒子
+边框的高度就会低于浮动元素的高度</h4>
+<ul>
+    <li>
+        使用clearfix，在文本和图片（浮动元素）的下面插入一个元素
+    </li>
+    <li>
+        使用overflow属性，把它设置为非默认值visible的值，创建一个BFC（其一特性是包裹浮动元素）
+    </li>
+</ul>
+<div class="outer clearfix">
+    <div class="inner">I am a floated element.</div>
+    I am text inside the outer box.
+</div>
+
+<div class="outer1">
+    <p class="inner1">I am paragraph one and i have a margin top and bottom of 20px;</p>
+    <p class="inner1">I am paragraph one and i have a margin top and bottom of 20px;</p>
+</div>
+</body>
+</html>

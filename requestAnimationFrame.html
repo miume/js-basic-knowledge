@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>window.requestAnimationFrame(callback)</title>
+</head>
+<body>
+<div>window.requestAnimationFrame(callback):下一次重绘之前更新动画帧所调用的函数</div>
+<div id="ele">请求动画帧</div>
+<div>
+    <div id="myDiv" style="width: 0;height: 20px;line-height: 20px;">0%</div>
+    <button id="btn">setIntervalRun</button>
+    <button id="setTimeoutRun">setTimeoutRun</button>
+    <button id="requestAnimationFrameRun">requestAnimationFrameRun</button>
+</div>
+</body>
+<script>
+    var start = null;
+    var element = document.getElementById('ele');
+    element.style.position = 'relative';
+
+    function step(timestamp) {
+        if (!start) start = timestamp;
+        var progress = timestamp - start;
+        element.style.left = Math.min(progress / 10, 100) + 'px';
+        if (progress < 2000) {
+            window.requestAnimationFrame(step);
+        }
+    }
+    //兼容写法
+    var requestAnimationFrame = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function(cb){window.setTimeout(cb,1000/60);};
+    requestAnimationFrame(step)
+
+    //用setInterval实现简单动画
+    let timer;
+    btn.onclick = function() {
+        clearInterval(timer);
+        myDiv.style.width = '0';
+        timer = setInterval(function() {
+            if(parseInt (myDiv.style.width) < 500 ) {
+                myDiv.style.width = parseInt(myDiv.style.width) + 5 + 'px';
+                myDiv.innerHTML = parseInt(myDiv.style.width) / 5 + '%';
+            } else {
+                clearInterval(timer);
+            }
+        }, 16)
+    }
+
+    //用setTimeout实现
+    let setTimer;
+    setTimeoutRun.onclick = function() {
+        clearTimeout(setTimer);
+        myDiv.style.width = 0;
+        setTimer = setTimeout(function fn() {
+            if( parseInt(myDiv.style.width) < 500 ) {
+                myDiv.style.width = parseInt(myDiv.style.width) + 5 + 'px';
+                myDiv.innerHTML = parseInt(myDiv.style.width) / 5 + '%';
+                timer = setTimeout(fn, 16);
+            } else {
+                clearTimeout(setTimer);
+            }
+        }, 16)
+    }
+
+    //用requestAnimationFrame(callback)
+    let requestId;
+    requestAnimationFrameRun.onclick = function() {
+        myDiv.style.width = 0;
+        cancelAnimationFrame(requestId);
+        requestId = requestAnimationFrame(requestAnimationFrameCallback);
+    }
+
+    function requestAnimationFrameCallback() {
+        if( parseInt(myDiv.style.width) < 500 ) {
+            myDiv.style.width = parseInt(myDiv.style.width) + 5 + 'px';
+            myDiv.innerHTML = parseInt(myDiv.style.width) / 5 + '%';
+            requestId = requestAnimationFrame(requestAnimationFrameCallback);
+        } else {
+            cancelAnimationFrame(requestId);
+        }
+    }
+</script>
+</html>

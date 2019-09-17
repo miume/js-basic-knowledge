@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js 事件：DOM0级事件处理程序和DOM2级事件处理程序</title>
+</head>
+<body>
+<div>
+    <p>js 事件</p>
+    <ul>
+        <li>确定数据源</li>
+        <li>确定数据类型</li>
+        <li>编写事件处理程序</li>
+    </ul>
+    <p>DOM0级事件处理程序</p>
+    <button type="button" id="button" onclick="handleClick()">DOM0级事件处理程序</button>
+    <ul>
+        <li>在标签内写事件</li>
+        <li>获取元素，绑定onclick事件</li>
+        <li>第二种方法多次绑定同一个事件会以最后一个为主，并且会覆盖第一种</li>
+    </ul>
+    <div>
+        <p>DOM2级事件处理程序</p>
+        <p>获取事件源，通过addEventListener(event,callback,isCapture)来绑定事件，可以多次绑定，然后依次执行</p>
+        <p>DOM0级事件处理程序可以和DOM2级事件处理程序共存</p>
+        <button type="button" id="button2" onclick="handleClick()">DOM2级事件处理程序</button>
+    </div>
+</div>
+</body>
+<script>
+    let obj = document.getElementById('button');
+    let obj2 = document.getElementById('button2');
+    function handleClick() {
+        alert('dom0级事件处理程序-在行内标签写事件')
+    }
+    obj.onclick = function() {
+        alert('dom0级事件处理程序-获取元素，绑定事件')
+    }
+    obj.onclick = function() {
+        alert('dom0级事件处理程序 绑定的事件以最后一个为准，会覆盖前面的')
+    }
+
+    obj2.onclick = function() {
+        alert('dom0级事件处理程序-获取元素，绑定事件')
+    }
+
+    obj2.addEventListener('click',function(e) {
+        alert('DOM2事件处理程序 第一个绑定的addEventListener事件')
+    })
+    obj2.addEventListener('click',function(e) {
+        alert('DOM2事件处理程序 第二个绑定的addEventListener事件')
+    })
+    obj2.addEventListener('click',function(e) {
+        alert('DOM2事件处理程序 第三个绑定的addEventListener事件')
+    })
+</script>
+</html>

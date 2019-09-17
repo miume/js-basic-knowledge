@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件委托和事件代理</title>
+</head>
+<style>
+    #box1 {
+        background-color: beige;
+        height: 200px;
+    }
+    #box2 {
+        background-color: orange;
+        height: 100px;
+    }
+</style>
+<body>
+<div>
+    <p>事件委托的原理：利用事件冒泡原理，只指定一个事件处理函数，来管理某一类型的所有事件</p>
+    <p>优点：只需操作一次DOM，就可以完成所有的效果</p>
+    <p>新增的子元素都是带有事件效果的；用事件委托，根本不需要去遍历元素的子节点，只需要给父元素添加事件就好来，其它的判断都在js里面执行</p>
+    <ul id='parent'>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+    </ul>
+    <div id="box1">
+        <div id="box2">
+            content
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    var obj = document.getElementById('parent');
+    obj.addEventListener('click',eventAgent,false);
+    function eventAgent(e) {
+        e = e || window.event;
+        target = e.target || e.srcElement; //用来兼容IE浏览器
+        console.log(e.currentTarget)
+        if(target.nodeName.toLowerCase() === 'li') {
+            alert(target.innerHTML)
+        }
+    }
+
+    const $ = document.querySelector.bind(document)
+    const box1 = $('#box1');
+    const box2 = $('#box2');
+
+    box1.addEventListener('click',()=> {
+        console.log('box1 捕获')
+    },true)
+
+    box1.addEventListener('click',()=> {
+        console.log('box1 冒泡')
+    },false)
+
+    box2.addEventListener('click',()=> {
+        console.log('box2 捕获')
+    },true)
+
+    box2.addEventListener('click',()=> {
+        console.log('box2 冒泡')
+    },false)
+
+    //若点击父元素#box1 则依次打印 box1 捕获 box1 冒泡
+    //若点击子元素#box2 则依次打印 box1 捕获 box2 捕获 box2 冒泡 box1 冒泡
+</script>
+</html>

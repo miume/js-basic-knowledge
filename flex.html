@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>flex布局</title>
+</head>
+<style>
+    html body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+    }
+    .container {
+        display: flex;
+        height: 100%;
+    }
+    .left {
+        flex: 1;
+        min-width: 150px;
+        max-width: 150px;
+        background-color: pink;
+    }
+    .right {
+        flex: 1;
+        min-width: 150px;
+        max-width: 150px;
+        background-color: pink;
+    }
+    .content {
+        flex: 2;
+        background-color: beige;
+    }
+</style>
+<body>
+<div class="container">
+    <div class="left"></div>
+    <div class="content">
+        <p>请实现一个两边宽度固定中间自适应的三列布局。</p>
+    </div>
+    <div class="right"></div>
+</div>
+</body>
+</html>

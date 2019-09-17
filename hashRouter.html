@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>hash 实现路由</title>
+</head>
+<body>
+<p>Hash方法是在路由中带一个#，主要原理是通过监听#后的URL路径标识符的更改而触发浏览器的hashchange
+事件，然后通过获取location.hash得到当前的路径标识符，再进行一些路由跳转的操作</p>
+<ul>
+    <li><a href="#/">home</a></li>
+    <li><a href="#/page1">page1</a></li>
+    <li><a href="#/page2">page2</a></li>
+</ul>
+<div class="content-div">home</div>
+<button>back</button>
+</body>
+<script src="MyHashRouter.js"></script>
+<script>
+    /**
+     * 原理：将目标路由和对应的回调记录下来，点击跳转触发hashchange的时候获取当前路径并执行对应回调
+     * hash路由后退：将经历的路由记录下来，路由后退跳转的实现是对location.hash进行赋值。
+     */
+    class RouterClass {
+        constructor() {
+            this.isBack = false;
+            this.routes = {};     //记录路径标识符对应的cb 回调函数
+            this.currentUrl = ''; //记录hash只为方便执行cb 回调函数
+            this.historyStack = []; //hash栈
+            window.addEventListener('load', () => this.render())
+            window.addEventListener('hashchange', () => this.render())
+        }
+
+        /**初始化*/
+        static init() {
+            window.Router = new RouterClass()
+        }
+        /**
+         * 记录path对应的callback
+         * @param path
+         * @param cb 回调函数
+         * */
+        route(path, cb) {
+            this.routes[path] = cb || function() {}
+        }
+        /**
+         * 入栈当前hash，执行callback
+         */
+        render() {
+            if (this.isBack) {
+                //如果是backoff进入，则置false之后return
+                this.isBack = false;
+                return
+            }
+            this.currentUrl = location.hash.slice(1) || '/';
+            console.log('this.currentUrl=',this.currentUrl)
+            this.historyStack.push(this.currentUrl);
+            console.log('historyStack=',this.historyStack)
+            console.log('routes=',this.routes)
+            this.routes[this.currentUrl]()
+        }
+        /**
+         * 路由后退
+         */
+        back() {
+            console.log('back')
+            this.isBack = true;
+            //移除当前hash，回退到上一个
+            this.historyStack.pop();
+            const { length } = this.historyStack;
+            //如果历史路径为空，则返回为空
+            if (!length) return;
+            //拿到要回退到的目标hash
+            let prev = this.historyStack[length - 1];
+            location.hash = `#${ prev }`;
+            this.currentUrl = prev;
+            this.routes[prev]();
+
+        }
+    }
+    RouterClass.init();
+    const BtnDom = document.querySelector('button');
+    const contentDom = document.querySelector('.content-div');
+    const changeContent = content => contentDom.innerHTML = content;
+
+    //存储path对应的回调函数
+    Router.route('/', () => changeContent('默认页面'));
+    Router.route('/page1', () => changeContent('page1页面'));
+    Router.route('/page2', () => changeContent('page2页面'));
+
+    BtnDom.addEventListener('click', Router.back.bind(Router), false);
+
+    $router.when('#/angular', `this is the page of <span>angular</span>`)
+           .when('#/vue', `this is the page of <span>vue</span>`)
+           .when('#/react', `this is the page of <span>react</span>`)
+           .otherwise('#/nomatch', `this is the page of when no hash path matched`)
+    $router.init();
+</script>
+</html>

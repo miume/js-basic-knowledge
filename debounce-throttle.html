@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>防抖和节流</title>
+</head>
+<body>
+<div>
+    <p>为了解决短时间内大量触发某函数而导致的性能问题</p>
+    <p>应用场景</p>
+    <ul>
+        <li>用户在输入框连续输入一串字符后，只在输入完成后一段时间触发最后一次事件的回调函数</li>
+        <li>window的onsize、scroll事件，不断调整浏览器的窗口大小或滚动时会触发的事件</li>
+    </ul>
+    <div>
+        <p>用防抖方法来减少事件触发频率，最后一个触发事件的回调函数才会被执行</p>
+        <input type="text" id="debounce" placeholder="请输入查询数据">
+    </div>
+    <div>
+        <p>用节流方法，来保证每一段时间内会触发一定事件回调函数</p>
+        <p>应用场景</p>
+        <ul>
+            <li>鼠标连续点击或滑动的情况下，一段时间只执行一次回调函数</li>
+            <li>在页面无限加载的情况下，需要用户在滚动界面时，每隔一段事件发送请求，而不是在用户停下滚动页面操作后才去请求数据</li>
+            <li>监听滚动事件</li>
+        </ul>
+        <input type="text" id="throttle" placeholder="请输入查询数据">
+    </div>
+</div>
+</body>
+<script>
+    let debounceId = document.getElementById('debounce');
+    let throttleId = document.getElementById('throttle');
+
+    let debounceAjax = debounce(handle, 1000);
+    let throttleAjax = throttle(handle, 1000);
+
+    debounceId.addEventListener('keyup', function(e) {
+        debounceAjax(e)
+    })
+
+    throttleId.addEventListener('keyup', function(e) {
+        throttleAjax(e)
+    })
+
+    function handle(e) {
+        console.log(e.target.value)
+    }
+
+    //防抖
+    //持续触发不执行
+    //持续触发后ms秒触发最后一次触发的回调函数
+    function debounce(fn, ms) {
+        let timer;
+        return function (args) {
+            let context = this;
+            //每次事件被触发,都会清除当前timer，然后重写设置超时调用
+            clearTimeout(timer)
+            timer = setTimeout(function() {
+                fn.call(context, args);
+                timer = null
+            }, ms)
+        }
+    }
+
+    //节流
+    //在规定时间范围内触发一次回调函数
+    //时间戳+定时器实现
+    function throttle(fn, ms) {
+        let preNow, timer;
+        return function(args) {
+            let context = this, now = Date.now();
+            //通过时间戳来判断是否触发函数
+            if(preNow && ms >= (now - preNow)) {
+                //在规定时间段多次触发，则会先清除当前定时器
+                clearTimeout(timer);
+                //启动定时器
+                timer = setTimeout(function() {
+                    fn.call(context, args);
+                    preNow = now;  //重新设置时间戳
+                }, ms)
+            } else {
+                //保证第一次触发事件就能立即执行事件处理函数
+                fn.call(context, args);
+                preNow = now; //重新设置时间戳
+            }
+        }
+    }
+
+
+</script>
+</html>
