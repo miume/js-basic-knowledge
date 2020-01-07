@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>table</title>
+</head>
+<body>
+<div>
+    <p>hash路由：通过监控#后面的路径标识符的变化来触发浏览器的hashchange事件，通过location.hash来获取当前路径标识符，从而实现路由跳转</p>
+    <ul>
+        <li><a href="#/">home</a></li>
+        <li><a href="#/page">page</a></li>
+        <li><a href="#/menu">menu</a></li>
+    </ul>
+    <p id="content"></p>
+    <button id="btn">back</button>
+    <p>
+        <button>historyBack</button>
+    </p>
+    <ul class="ul">
+        <li><a href="/">home</a></li>
+        <li><a href="/page">page</a></li>
+        <li><a href="/menu">menu</a></li>
+    </ul>
+    <div class="content-div">home</div>
+</div>
+</body>
+<script>
+    /**hash：通过监控#后面的url标识符变化，来触发浏览器的hashchange事件，
+     * 通过location.hash可以获取当前url标识符，从而实现路由*/
+    class RouterClass {
+        constructor() {
+            this.currentUrl = ''; //当前的路径标识符
+            this.isBack = false;
+            this.routes = {};     //记录路径标识符对应的回调函数
+            this.historyStack = []; //记录历史路径标识符
+            window.addEventListener('load', () => this.render());
+            window.addEventListener('hashchange', () => this.render());
+        }
+
+        static init() {
+            window.Router = new RouterClass();
+        }
+
+        /**记录不同路径标识符的回调函数*/
+        route(path, callback) {
+            this.routes[path] = callback || function() {};
+        }
+
+        render() {
+            if(this.isBack) {
+                this.isBack = false;
+                return;
+            }
+            this.currentUrl = location.hash.slice(1) || '/';
+            this.historyStack.push(this.currentUrl);
+            console.log(this.currentUrl)
+            this.routes[this.currentUrl] && this.routes[this.currentUrl]();  //执行当前路径标识符的回调函数
+        }
+
+        back() {
+            this.isBack = true;
+            this.historyStack.pop();
+            let {length} = this.historyStack;
+            if(!length) return;
+            let prev = this.historyStack[length-1];
+            location.hash = `#${prev}`;
+            this.currentUrl = prev;
+            this.routes[prev] && this.routes[prev]();
+        }
+    }
+
+    //RouterClass.init();   //hash路由
+    let btn = document.querySelector('#btn'), content = document.querySelector('#content');
+    //btn.addEventListener('click', Router.back.bind(Router),false);
+    let contentRender = (text) => content.innerHTML = text;
+
+    // Router.route('/', () => contentRender('默认主页'));
+    // Router.route('/page', () => contentRender('页面展示'));
+    // Router.route('/menu',  () => contentRender('菜单展示'));
+
+    /**利用浏览器history来实现路由
+     * history.go(n)
+     * history.back()
+     * history.forward()
+     * history.pushState(state,title,url)
+     * history.replaceState(state,title,url)
+     * popState事件：当活动的历史记录发生改变时，就会触发popState事件
+     * */
+    class HistoryRouter {
+        constructor(path) {
+            this.routes = {};   //记录路由对应的回调函数
+            history.replaceState({path}, null, path);
+            this.routes[path] && this.routes[path]();
+            window.addEventListener('popstate', e => {
+                const path = e.state && e.state.path;
+                console.log(e.state)
+                //this.routes[path] && this.routes[path]();
+            });
+        }
+        static init() {
+            console.log(location.pathname)
+            window.HistoryRoute = new HistoryRouter(location.pathname);
+        }
+
+        /**记录路由触发对应的回调函数*/
+        route(path, callback) {
+            this.routes[path] = callback || function() {};
+        }
+
+        /**路由跳转，并触发路由对应的回调函数*/
+        go(path) {
+            history.pushState({path}, '', path);
+            this.routes[path] && this.routes[path]();
+        }
+    }
+
+    HistoryRouter.init(); //history实现路由
+
+    const contentDom = document.querySelector('.content-div');
+    const ul = document.querySelector('.ul');
+    const changeContent = content => contentDom.innerHTML = content;
+    ul.addEventListener('click', e => {
+        console.log(e.target)
+        if (e.target.tagName === 'A') {
+            e.preventDefault();
+        }
+        HistoryRoute.go(e.target.getAttribute('href'))
+    })
+
+    HistoryRoute.route('/', () => changeContent('默认主页'));
+    HistoryRoute.route('/page', () => changeContent('页面展示'));
+    HistoryRoute.route('/menu',  () => changeContent('菜单展示'));
+
+</script>
+</html>
+
+

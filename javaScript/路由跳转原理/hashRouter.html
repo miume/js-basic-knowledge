@@ -79,6 +79,7 @@
         }
     }
     RouterClass.init();
+    console.log(Router)
     const BtnDom = document.querySelector('button');
     const contentDom = document.querySelector('.content-div');
     const changeContent = content => contentDom.innerHTML = content;
@@ -90,10 +91,10 @@
 
     BtnDom.addEventListener('click', Router.back.bind(Router), false);
 
-    $router.when('#/angular', `this is the page of <span>angular</span>`)
-           .when('#/vue', `this is the page of <span>vue</span>`)
-           .when('#/react', `this is the page of <span>react</span>`)
-           .otherwise('#/nomatch', `this is the page of when no hash path matched`)
-    $router.init();
+    // $router.when('#/angular', `this is the page of <span>angular</span>`)
+    //        .when('#/vue', `this is the page of <span>vue</span>`)
+    //        .when('#/react', `this is the page of <span>react</span>`)
+    //        .otherwise('#/nomatch', `this is the page of when no hash path matched`)
+    // $router.init();
 </script>
 </html>
