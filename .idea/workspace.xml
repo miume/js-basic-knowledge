@@ -1,25 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f57bfbe6-7825-48f4-8dc6-b1bd5c2c2465" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/javaScript/路由跳转原理/table.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BFC.html" beforeDir="false" afterPath="$PROJECT_DIR$/javaScript/BFC/BFC.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BFC.md" beforeDir="false" afterPath="$PROJECT_DIR$/javaScript/BFC/BFC.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DOM0-DOM2.html" beforeDir="false" afterPath="$PROJECT_DIR$/javaScript/事件流/DOM0-DOM2.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyHashRouter.js" beforeDir="false" afterPath="$PROJECT_DIR$/javaScript/路由跳转原理/MyHashRouter.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debounce-throttle.html" beforeDir="false" afterPath="$PROJECT_DIR$/javaScript/防抖和节流/debounce-throttle.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eventAgent.html" beforeDir="false" afterPath="$PROJECT_DIR$/javaScript/事件流/eventAgent.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flex.html" beforeDir="false" afterPath="$PROJECT_DIR$/CSS/flex.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hashRouter.html" beforeDir="false" afterPath="$PROJECT_DIR$/javaScript/路由跳转原理/hashRouter.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/historyRouter.html" beforeDir="false" afterPath="$PROJECT_DIR$/javaScript/路由跳转原理/historyRouter.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js 事件流.md" beforeDir="false" afterPath="$PROJECT_DIR$/javaScript/事件流/js 事件流.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requestAnimationFrame.html" beforeDir="false" afterPath="$PROJECT_DIR$/CSS/requestAnimationFrame.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/triangle.html" beforeDir="false" afterPath="$PROJECT_DIR$/CSS/triangle.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/前端路由跳转基本原理.md" beforeDir="false" afterPath="$PROJECT_DIR$/javaScript/路由跳转原理/前端路由跳转基本原理.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/防抖debounce和节流throttle.md" beforeDir="false" afterPath="$PROJECT_DIR$/javaScript/防抖和节流/防抖debounce和节流throttle.md" afterDir="false" />
-    </list>
+    <list default="true" id="f57bfbe6-7825-48f4-8dc6-b1bd5c2c2465" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -31,16 +13,16 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/javaScript/防抖和节流/debounce-throttle.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="591">
-              <caret line="51" column="27" selection-start-line="49" selection-start-column="4" selection-end-line="51" selection-end-column="27" />
+            <state relative-caret-position="341">
+              <caret line="56" column="44" lean-forward="true" selection-start-line="56" selection-start-column="12" selection-end-line="56" selection-end-column="44" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
@@ -174,6 +156,17 @@
               <item name="js-" type="462c0819:PsiDirectoryNode" />
               <item name="CSS" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="js-" type="b2602c69:ProjectViewProjectNode" />
+              <item name="js-" type="462c0819:PsiDirectoryNode" />
+              <item name="javaScript" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="js-" type="b2602c69:ProjectViewProjectNode" />
+              <item name="js-" type="462c0819:PsiDirectoryNode" />
+              <item name="javaScript" type="462c0819:PsiDirectoryNode" />
+              <item name="防抖和节流" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -221,12 +214,12 @@
       <updated>1570697029864</updated>
       <workItem from="1570697031185" duration="2025000" />
       <workItem from="1572521794415" duration="8131000" />
-      <workItem from="1578365074329" duration="1542000" />
+      <workItem from="1578365074329" duration="3237000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11698000" />
+    <option name="totallyTimeSpent" value="13393000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="44" y="33" width="1318" height="798" extended-state="0" />
@@ -244,7 +237,7 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
-      <window_info anchor="bottom" id="Terminal" order="9" />
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.674221" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -290,13 +283,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3094">
           <caret line="91" column="31" selection-start-line="91" selection-start-column="31" selection-end-line="91" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/javaScript/防抖和节流/debounce-throttle.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="591">
-          <caret line="51" column="27" selection-start-line="49" selection-start-column="4" selection-end-line="51" selection-end-column="27" />
         </state>
       </provider>
     </entry>
@@ -372,6 +358,13 @@
             <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
           </first_editor>
           <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/javaScript/防抖和节流/debounce-throttle.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="341">
+          <caret line="56" column="44" lean-forward="true" selection-start-line="56" selection-start-column="12" selection-end-line="56" selection-end-column="44" />
         </state>
       </provider>
     </entry>
